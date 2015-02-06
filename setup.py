@@ -3,10 +3,10 @@ from setuptools import setup
 # from tests import PyTest
 
 setup(
-    name='sphinx-swagger',
+    name='sphinx_swagger',
     version='0.1.0',
     packages=[
-        'sphinx-swagger',
+        'sphinx_swagger',
     ],
 
     url='',
