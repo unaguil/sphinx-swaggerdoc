@@ -6,7 +6,7 @@ setup(
     name='sphinx-swagger',
     version='0.1.0',
     packages=[
-        'sphinxswagger',
+        'sphinx-swagger',
     ],
 
     url='',
