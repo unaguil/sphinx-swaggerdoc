@@ -81,11 +81,3 @@ class SwaggerDocDirective(Directive):
             para += nodes.Text('. Please check that the URL is a valid Swagger api-docs URL and it is accesible')
             error += para
             return [error]
-
-def setup(app):
-    app.add_node(sphinx_swagger,
-                 html=(visit_swaggerdoc_node, depart_swaggerdoc_node),
-                 latex=(visit_swaggerdoc_node, depart_swaggerdoc_node),
-                 text=(visit_swaggerdoc_node, depart_swaggerdoc_node))
-
-    app.add_directive('swaggerdoc', SwaggerDocDirective)
