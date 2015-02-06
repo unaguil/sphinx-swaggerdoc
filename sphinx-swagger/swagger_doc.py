@@ -83,7 +83,7 @@ class SwaggerDocDirective(Directive):
             return [error]
 
 def setup(app):
-    app.add_node(swaggerdoc,
+    app.add_node(sphinx-swagger,
                  html=(visit_swaggerdoc_node, depart_swaggerdoc_node),
                  latex=(visit_swaggerdoc_node, depart_swaggerdoc_node),
                  text=(visit_swaggerdoc_node, depart_swaggerdoc_node))
