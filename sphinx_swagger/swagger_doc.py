@@ -73,7 +73,7 @@ class SwaggerDocDirective(Directive):
 
             return entries
         except:
-            print 'Unable to process URL: %s' % self.content[0]
+            print('Unable to process URL: %s' % self.content[0])
             error = nodes.error('')
             para = nodes.paragraph()
             para += nodes.Text('Unable to process URL: ')
