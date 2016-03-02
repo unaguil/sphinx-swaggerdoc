@@ -1,5 +1,5 @@
-from swagger_doc import swaggerdoc, visit_swaggerdoc_node, depart_swaggerdoc_node, SwaggerDocDirective
-from swaggerv2_doc import swaggerv2doc, visit_swaggerv2doc_node, depart_swaggerv2doc_node, SwaggerV2DocDirective
+from .swagger_doc import swaggerdoc, visit_swaggerdoc_node, depart_swaggerdoc_node, SwaggerDocDirective
+from .swaggerv2_doc import swaggerv2doc, visit_swaggerv2doc_node, depart_swaggerv2doc_node, SwaggerV2DocDirective
 
 def setup(app):
     app.add_node(swaggerdoc,
