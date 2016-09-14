@@ -7,9 +7,9 @@ Include extension in *conf.py*
 
     extensions = ['sphinx_swagger']
 
-Add directive pointin to Swagger api-docs
+Add directive pointing to Swagger api-docs
 
-    .. swaggerdoc:: URL
+    .. swaggerv2doc:: URL
 
 For example    
 
