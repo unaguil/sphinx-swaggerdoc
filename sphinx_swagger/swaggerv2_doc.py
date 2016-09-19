@@ -98,7 +98,7 @@ class SwaggerV2DocDirective(Directive):
         entries.append(paragraph)
         entries.append(table)
 
-        return entries    
+        return entries
 
     def make_method(self, path, method_type, method):
         swagger_node = swaggerv2doc(path)
@@ -138,24 +138,32 @@ class SwaggerV2DocDirective(Directive):
         return section
 
     def run(self):
+        api_url = self.content[0]
+
+        if len(self.content) > 1:
+            selected_tags = self.content[1:]
+        else:
+            selected_tags = []
+
         try:
-            api_desc = self.processSwaggerURL(self.content[0])
+            api_desc = self.processSwaggerURL(api_url)
 
             groups = self.group_tags(api_desc)
 
             entries = []
             for tag_name, methods in groups.items():
-                section = self.create_section(tag_name)
+                if tag_name in selected_tags or len(selected_tags) == 0:
+                    section = self.create_section(tag_name)
 
-                for path, method_type, method in methods:
-                    section += self.make_method(path, method_type, method)
+                    for path, method_type, method in methods:
+                        section += self.make_method(path, method_type, method)
 
-                entries.append(section)
+                    entries.append(section)
 
             return entries
         except Exception as e:
-            error_message = 'Unable to process URL: %s' % self.content[0]
-            print error_message
+            error_message = 'Unable to process URL: %s' % api_url
+            print(error_message)
             traceback.print_exc()
 
             error = nodes.error('')
