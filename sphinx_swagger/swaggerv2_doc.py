@@ -52,7 +52,7 @@ class SwaggerV2DocDirective(Directive):
 
         bullet_list = nodes.bullet_list()
         bullet_list += self.create_item('Description: ', method.get('description', ''))
-        bullet_list += self.create_item('Consumes: ', self.expand_values(method.get('consumer', '')))
+        bullet_list += self.create_item('Consumes: ', self.expand_values(method.get('consumes', '')))
         bullet_list += self.create_item('Produces: ', self.expand_values(method.get('produces', '')))
         content += bullet_list
 
