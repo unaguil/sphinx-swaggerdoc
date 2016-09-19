@@ -1,5 +1,5 @@
 # sphinx-swagger
-Sphinx extension that automatically documents Swagger APIs
+Sphinx extension for automatically documenting Swagger 2.0 APIs.
 
 **Usage**
 
@@ -9,12 +9,27 @@ Include extension in *conf.py*
 
 Add directive pointing to Swagger api-docs
 
-    .. swaggerv2doc:: URL
+    .. swaggerv2doc:: URL/swagger.json
 
 For example    
 
-    .. swaggerv2doc:: http://petstore.swagger.wordnik.com/api/api-docs/pet
+    .. swaggerv2doc:: http://petstore.swagger.io/v2/swagger.json
 
-    .. swaggerv2doc:: http://petstore.swagger.wordnik.com/api/api-docs/user
+If the Swagger description contains multiple tags, you can select a subset
+for the documentation generation. For example, the following directive only
+generates the documentation for the methods contained in tags **pet** and
+**store**.
 
-    .. swaggerv2doc:: http://petstore.swagger.wordnik.com/api/api-docs/store
+    .. swaggerv2doc:: http://petstore.swagger.io/v2/swagger.json
+       pet
+       store
+
+**Note**
+
+The old directive for Swagger 1.0 is still accesible. For example,
+
+.. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/pet
+
+.. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/user
+
+.. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/store
