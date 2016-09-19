@@ -44,20 +44,78 @@ class SwaggerV2DocDirective(Directive):
 
         return expanded_values
 
+    def cell(self, contents):
+        if isinstance(contents, basestring):
+            contents = nodes.paragraph(text=contents)
+        return nodes.entry('', contents)
+
+    def row(self, cells):
+        return nodes.row('', *[self.cell(c) for c in cells])
+
+    def create_table(self, head, body, colspec=None):
+        table = nodes.table()
+        tgroup = nodes.tgroup()
+        table.append(tgroup)
+
+        # Create a colspec for each column
+        if colspec is None:
+            colspec = [1 for n in range(len(head))]
+
+        for width in colspec:
+            tgroup.append(nodes.colspec(colwidth=width))
+
+        # Create the table headers
+        thead = nodes.thead()
+        thead.append(self.row(head))
+        tgroup.append(thead)
+
+        # Create the table body
+        tbody = nodes.tbody()
+        tbody.extend([self.row(r) for r in body])
+        tgroup.append(tbody)
+
+        return table
+
+    def make_parameters(self, parameters):
+        entries = []
+
+        head = ['Name', 'Position', 'Description', 'Type']
+        body = []
+        for param in parameters:
+            row = []
+            row.append(param.get('name', ''))
+            row.append(param.get('in', ''))
+            row.append(param.get('description', ''))
+            row.append(param.get('type', ''))
+
+            body.append(row)
+
+        table = self.create_table(head, body)
+
+        paragraph = nodes.paragraph()
+        paragraph += nodes.strong('', 'Parameters')
+
+        entries.append(paragraph)
+        entries.append(table)
+
+        return entries    
+
     def make_method(self, path, method_type, method):
         swagger_node = swaggerv2doc(path)
         swagger_node += nodes.title(path, method_type.upper() + ' ' + path)
 
-        content = nodes.paragraph()
-        content += nodes.Text(method['summary'])
+        paragraph = nodes.paragraph()
+        paragraph += nodes.Text(method['summary'])
 
         bullet_list = nodes.bullet_list()
         bullet_list += self.create_item('Description: ', method.get('description', ''))
         bullet_list += self.create_item('Consumes: ', self.expand_values(method.get('consumes', '')))
         bullet_list += self.create_item('Produces: ', self.expand_values(method.get('produces', '')))
-        content += bullet_list
+        paragraph += bullet_list
 
-        swagger_node += content
+        swagger_node += paragraph
+
+        swagger_node += self.make_parameters(method['parameters'])
 
         return [swagger_node]
 
