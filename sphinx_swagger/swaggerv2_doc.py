@@ -20,6 +20,8 @@ def depart_swaggerv2doc_node(self, node):
 
 class SwaggerV2DocDirective(Directive):
 
+    DEFAULT_GROUP = ''
+
     # this enables content in the directive
     has_content = True
 
@@ -122,13 +124,20 @@ class SwaggerV2DocDirective(Directive):
     def group_tags(self, api_desc):
         groups = {}
 
-        for tag in api_desc['tags']:
-            groups[tag['name']] = []
+        if 'tags' in api_desc:
+            for tag in api_desc['tags']:
+                groups[tag['name']] = []
+
+        if len(groups) == 0:
+            groups[SwaggerV2DocDirective.DEFAULT_GROUP] = []
 
         for path, methods in api_desc['paths'].items():
             for method_type, method in methods.items():
-                for tag in method['tags']:
-                    groups[tag].append((path, method_type, method))
+                if SwaggerV2DocDirective.DEFAULT_GROUP in groups:
+                    groups[SwaggerV2DocDirective.DEFAULT_GROUP].append((path, method_type, method))
+                else:
+                    for tag in method['tags']:
+                        groups[tag].append((path, method_type, method))
 
         return groups
 
@@ -137,7 +146,15 @@ class SwaggerV2DocDirective(Directive):
         section += nodes.title(title, title)
         return section
 
+    def check_tags(self, selected_tags, tags, api_url):
+        invalid_tags = list(set(selected_tags) - set(tags))
+        if len(invalid_tags) > 0:
+            msg = self.reporter.error("Error. Tag '%s' not found in Swagger URL %s." % (invalid_tags[0], api_url))
+            return [msg]
+
     def run(self):
+        self.reporter = self.state.document.reporter
+
         api_url = self.content[0]
 
         if len(self.content) > 1:
@@ -149,6 +166,8 @@ class SwaggerV2DocDirective(Directive):
             api_desc = self.processSwaggerURL(api_url)
 
             groups = self.group_tags(api_desc)
+
+            self.check_tags(selected_tags, groups.keys(), api_url)
 
             entries = []
             for tag_name, methods in groups.items():
