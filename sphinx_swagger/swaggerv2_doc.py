@@ -3,6 +3,7 @@ from docutils import nodes
 import traceback
 
 from docutils.parsers.rst import Directive
+from past.builtins import basestring
 
 from sphinx.locale import _
 
@@ -49,6 +50,7 @@ class SwaggerV2DocDirective(Directive):
     def cell(self, contents):
         if isinstance(contents, basestring):
             contents = nodes.paragraph(text=contents)
+
         return nodes.entry('', contents)
 
     def row(self, cells):

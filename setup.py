@@ -15,5 +15,5 @@ setup(
     author_email='unai.aguilera@deusto.es',
     description='Sphinx extension that automatically documents Swagger APIs',
     long_description='',
-    install_requires=['sphinx', 'requests']
+    install_requires=['sphinx', 'requests', 'future']
 )
