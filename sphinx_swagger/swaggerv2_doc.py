@@ -8,6 +8,7 @@ from past.builtins import basestring
 from sphinx.locale import _
 
 import requests
+from requests_file import FileAdapter
 import json
 
 class swaggerv2doc(nodes.Admonition, nodes.Element):
@@ -27,7 +28,9 @@ class SwaggerV2DocDirective(Directive):
     has_content = True
 
     def processSwaggerURL(self, url):
-        r = requests.get(url)
+        s = requests.Session()
+        s.mount('file://', FileAdapter())
+        r = s.get(url)
         return r.json()
 
     def create_item(self, key, value):
