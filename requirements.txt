@@ -1,0 +1,4 @@
+sphinx
+requests
+requests-file
+future
