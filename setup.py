@@ -15,7 +15,7 @@ setup(
     author='Unai Aguilera',
     author_email='unai.aguilera@deusto.es',
     description='Sphinx extension for documenting Swagger 2.0 APIs',
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     license='MIT',
     keywords='',
     url='https://github.com/unaguil/sphinx-swaggerdoc',
