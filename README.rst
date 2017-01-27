@@ -21,6 +21,8 @@ Add directive pointing to Swagger api-docs
 
 For example
 
+.. code:: restructuredtext
+
     .. swaggerv2doc:: http://petstore.swagger.io/v2/swagger.json
 
 If the Swagger description contains multiple tags, you can select a subset
