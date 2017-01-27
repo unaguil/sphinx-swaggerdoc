@@ -4,6 +4,10 @@ sphinxcontrib-swaggerdoc
 
 Sphinx extension for documenting Swagger 2.0 APIs
 
+.. code:: bash
+
+   pip install sphinxcontrib-swaggerdoc
+
 Usage
 =====
 
