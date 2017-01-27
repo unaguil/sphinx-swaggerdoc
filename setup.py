@@ -11,14 +11,14 @@ def read(fname):
 
 setup(
     name='sphinxcontrib-swaggerdoc',
-    version='0.1.0',
+    version='0.1.1',
     author='Unai Aguilera',
     author_email='unai.aguilera@deusto.es',
     description='Sphinx extension for documenting Swagger 2.0 APIs',
     long_description=read('README.md'),
     license='MIT',
     keywords='',
-    url='https://github.com/unaguil/sphinx-swagger',
+    url='https://github.com/unaguil/sphinx-swaggerdoc',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
