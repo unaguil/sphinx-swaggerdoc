@@ -11,7 +11,7 @@ Include extension in ``conf.py``
 
 .. code:: python
 
-   extensions = ['sphinx_swagger']
+   extensions = ['sphinxcontrib.swaggerdoc']
 
 Add directive pointing to Swagger api-docs
 
