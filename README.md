@@ -1,5 +1,5 @@
 # sphinx-swagger
-Sphinx extension for automatically documenting Swagger 2.0 APIs.
+Sphinx extension for documenting Swagger 2.0 APIs
 
 **Usage**
 
@@ -26,7 +26,7 @@ generates the documentation for the methods contained in tags **pet** and
 
 **Note**
 
-The old directive for Swagger 1.0 is usable. For example,
+The old directive for Swagger 1.0 is still usable. For example,
 
     .. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/pet
     .. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/user

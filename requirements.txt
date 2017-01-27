@@ -1,1 +1,0 @@
-sphinx-testing==0.7.1
