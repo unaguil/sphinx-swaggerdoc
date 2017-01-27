@@ -1,17 +1,25 @@
-# sphinx-swagger
+========================
+sphinxcontrib-swaggerdoc
+========================
+
 Sphinx extension for documenting Swagger 2.0 APIs
 
-**Usage**
+Usage
+=====
 
-Include extension in *conf.py*
+Include extension in ``conf.py``
 
-    extensions = ['sphinx_swagger']
+.. code:: python
+
+   extensions = ['sphinx_swagger']
 
 Add directive pointing to Swagger api-docs
 
+.. code:: restructuredtext
+
     .. swaggerv2doc:: URL/swagger.json
 
-For example    
+For example
 
     .. swaggerv2doc:: http://petstore.swagger.io/v2/swagger.json
 
@@ -20,13 +28,18 @@ for the documentation generation. For example, the following directive only
 generates the documentation for the methods contained in tags **pet** and
 **store**.
 
+.. code:: restructuredtext
+
     .. swaggerv2doc:: http://petstore.swagger.io/v2/swagger.json
        pet
        store
 
-**Note**
+Note
+====
 
 The old directive for Swagger 1.0 is still usable. For example,
+
+.. code:: restructuredtext
 
     .. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/pet
     .. swaggerdoc:: http://petstore.swagger.wordnik.com/api/api-docs/user
