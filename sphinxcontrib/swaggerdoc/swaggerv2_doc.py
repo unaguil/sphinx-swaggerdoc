@@ -112,17 +112,27 @@ class SwaggerV2DocDirective(Directive):
         swagger_node += nodes.title(path, method_type.upper() + ' ' + path)
 
         paragraph = nodes.paragraph()
-        paragraph += nodes.Text(method['summary'])
+        summary = method.get('summary')
+        if summary:
+            paragraph += nodes.Text(summary)
 
         bullet_list = nodes.bullet_list()
-        bullet_list += self.create_item('Description: ', method.get('description', ''))
-        bullet_list += self.create_item('Consumes: ', self.expand_values(method.get('consumes', '')))
-        bullet_list += self.create_item('Produces: ', self.expand_values(method.get('produces', '')))
+        description = method.get('description')
+        if description:
+            bullet_list += self.create_item('Description: ', description)
+        consumes = method.get('consumes')
+        if consumes:
+            bullet_list += self.create_item('Consumes: ', self.expand_values(consumes))
+        produces = method.get('produces')
+        if produces:
+            bullet_list += self.create_item('Produces: ', self.expand_values(produces))
         paragraph += bullet_list
 
         swagger_node += paragraph
 
-        swagger_node += self.make_parameters(method['parameters'])
+        parameters = method.get('parameters')
+        if parameters:
+            swagger_node += self.make_parameters(parameters)
 
         return [swagger_node]
 
