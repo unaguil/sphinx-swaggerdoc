@@ -7,6 +7,7 @@ from past.builtins import basestring
 
 from sphinx.locale import _
 
+from six.moves.urllib import parse as urlparse   # Retain Py2 compatibility for urlparse
 import requests
 from requests_file import FileAdapter
 import json
@@ -28,10 +29,21 @@ class SwaggerV2DocDirective(Directive):
     has_content = True
 
     def processSwaggerURL(self, url):
-        s = requests.Session()
-        s.mount('file://', FileAdapter())
-        r = s.get(url)
-        return r.json()
+        parsed_url = urlparse.urlparse(url)
+        if not parsed_url.scheme:  # Assume file relative to documentation
+            env = self.state.document.settings.env
+            relfn, absfn = env.relfn2path(url)
+            env.note_dependency(relfn)
+
+            with open(absfn) as fd:
+                content = fd.read()
+
+            return json.loads(content)
+        else:
+            s = requests.Session()
+            s.mount('file://', FileAdapter())
+            r = s.get(url)
+            return r.json()
 
     def create_item(self, key, value):
         para = nodes.paragraph()
