@@ -17,11 +17,17 @@ Include extension in ``conf.py``
 
    extensions = ['sphinxcontrib.swaggerdoc']
 
-Add directive pointing to Swagger api-docs
+Add directive pointing to a remote Swagger api-docs
 
 .. code:: restructuredtext
 
     .. swaggerv2doc:: URL/swagger.json
+    
+or to a local file
+
+.. code:: restructuredtext
+
+    .. swaggerv2doc:: file:///PATH/swagger.json
 
 For example
 

@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name='sphinxcontrib-swaggerdoc',
-    version='0.1.3',
+    version='0.1.4',
     author='Unai Aguilera',
     author_email='unai.aguilera@deusto.es',
     description='Sphinx extension for documenting Swagger 2.0 APIs',
