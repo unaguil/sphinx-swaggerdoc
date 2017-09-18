@@ -95,6 +95,37 @@ class SwaggerV2DocDirective(Directive):
 
         return table
 
+    def make_responses(self, responses):
+        # Create an entry with swagger responses and a table of the response properties
+        entries = []
+        paragraph = nodes.paragraph()
+        paragraph += nodes.strong('', 'Responses')
+
+        entries.append(paragraph)
+
+        head = ['Name', 'Description', 'Type']
+        for response_name, response in responses.items():
+            paragraph = nodes.paragraph()
+            paragraph += nodes.emphasis('', '{} - {}'.format(response_name,
+                                                             response.get('description', '')))
+            entries.append(paragraph)
+
+            body = []
+
+            # if the optional field properties is in the schema, display the properties
+            if isinstance(response.get('schema'), dict) and 'properties' in response.get('schema'):
+                for property_name, property in response.get('schema').get('properties', {}).items():
+                    row = []
+                    row.append(property_name)
+                    row.append(property.get('description', ''))
+                    row.append(property.get('type', ''))
+
+                    body.append(row)
+
+                table = self.create_table(head, body)
+                entries.append(table)
+        return entries
+
     def make_parameters(self, parameters):
         entries = []
 
@@ -142,6 +173,11 @@ class SwaggerV2DocDirective(Directive):
         parameters = method.get('parameters')
         if parameters is not None:
             swagger_node += self.make_parameters(parameters)
+
+
+        responses = method.get('responses')
+        if responses is not None:
+            swagger_node += self.make_responses(responses)
 
         return [swagger_node]
 
