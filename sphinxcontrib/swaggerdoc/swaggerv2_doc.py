@@ -106,8 +106,8 @@ class SwaggerV2DocDirective(Directive):
         head = ['Name', 'Description', 'Type']
         for response_name, response in responses.items():
             paragraph = nodes.paragraph()
-            paragraph += nodes.emphasis('', '{} - {}'.format(response_name,
-                                                             response.get('description', '')))
+            paragraph += nodes.emphasis('', '%s - %s' % (response_name,
+                                                         response.get('description', '')))
             entries.append(paragraph)
 
             body = []
